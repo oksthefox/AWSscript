@@ -20,6 +20,11 @@ if [[ -z $action ]]; then
     exit 1
 fi
 
+if [[ $@ != 1]]; then
+    echo "you can print only one parameter"
+    exit 1
+fi
+
 # Get a list of all running EC2 instances
 instance_ids=$(aws ec2 describe-instances --region eu-north-1 --query 'Reservations[].Instances[?State.Name==`running`].InstanceId' --output text)
 
@@ -27,6 +32,20 @@ instance_ids2=$(aws ec2 describe-instances --region eu-north-1 --query 'Reservat
 # Perform the specified action
 
 case $action in
+    "--create-image")
+        for id in $instance_ids; do
+            echo "Stopping instance: $id"
+            aws ec2 stop-instances --region eu-north-1 --instance-ids $id
+
+        done
+        ;;
+    "--upgrade")
+        for id in $instance_ids; do
+            echo "Stopping instance: $id"
+            aws ec2 stop-instances --region eu-north-1 --instance-ids $id
+
+        done
+        ;;
     "--stop")
         for id in $instance_ids; do
             echo "Stopping instance: $id"
