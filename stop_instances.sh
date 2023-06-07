@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Set AWS credentials and default region
-export AWS_ACCESS_KEY_ID=AKIA6BBANMTUIBRMTGG2
-export AWS_SECRET_ACCESS_KEY=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
-export AWS_DEFAULT_REGION=eu-north-1
 
 # Function to prompt for confirmation
 confirm_action() {
